@@ -151,7 +151,7 @@ func GetPosixTZ(current time.Time) string {
 }
 
 func GetPath(urlOrPath, defPath string) string {
-	if urlOrPath == "" {
+	if urlOrPath == "" || urlOrPath == "/" {
 		return defPath
 	}
 	if urlOrPath[0] == '/' {
