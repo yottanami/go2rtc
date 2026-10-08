@@ -225,3 +225,18 @@ func TestGetCapabilities(t *testing.T) {
 		})
 	}
 }
+
+func TestGetPath(t *testing.T) {
+	tests := []struct {
+		urlOrPath, defPath, want string
+	}{
+		{"", "/onvif/media_service", "/onvif/media_service"},
+		{"/custom/device_service", PathDevice, "/custom/device_service"},
+		{"http://10.0.0.16:80/onvif/Media", "/onvif/media_service", "/onvif/Media"},
+		{"http://192.168.1.123/onvif/imaging_service", "/onvif/imaging_service", "/onvif/imaging_service"},
+		{"http://10.0.0.16", "/onvif/media_service", "/onvif/media_service"},
+	}
+	for _, test := range tests {
+		require.Equal(t, test.want, GetPath(test.urlOrPath, test.defPath), test.urlOrPath)
+	}
+}
